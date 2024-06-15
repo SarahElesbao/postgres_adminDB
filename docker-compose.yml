@@ -10,6 +10,7 @@ services:
     hostname: postgres-source-db
     extra_hosts:
       - "barman: 192.168.100.87"
+      - "temboard: 192.168.100.5"
     container_name: postgres-source-db
     image: postgres-source-db:latest
     build:
@@ -22,6 +23,7 @@ services:
     ports:
     - "6432:5432"
     - "222:22"
+    - "2345:2345"
     volumes:
       - type: volume
         source: pg-data
@@ -52,6 +54,12 @@ services:
       - "log_directory=/var/lib/postgresql/data/log"
       - "-c"
       - "log_filename=postgresql.log"
+      - "-c"
+      - "shared_preload_libraries=pg_stat_statements"
+      - "-c" 
+      - "pg_stat_statements.track=all"
+      - "-c" 
+      - "pg_stat_statements.max=10000"
     logging:
       driver: "json-file"
       options:
