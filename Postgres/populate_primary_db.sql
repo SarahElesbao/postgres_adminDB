@@ -129,3 +129,13 @@ create table alvara (
 
   CONSTRAINT fk_audiencia FOREIGN KEY (audienciaId) REFERENCES audiencia(id)
 );
+
+CREATE INDEX idx_contrato_tipo ON contrato (tipo);
+ 
+CREATE INDEX idx_processo_numero ON processo (numero);
+ 
+CREATE INDEX idx_movimento_processual_processoId_fase ON movimento_processual (processoId, fase);
+ 
+CREATE INDEX idx_cargo_funcionario ON funcionario (cargo);
+ 
+CREATE INDEX idx_documento ON documento (processoId);
